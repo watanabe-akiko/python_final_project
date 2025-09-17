@@ -41,8 +41,8 @@ class Bullet:
             self.rect.y = player_rect.y + mouth
         # 左向きの場合
         else:
-            self.rect.x = player_rect.x + 100 - 15 
-            self.rect.y = player_rect.y + mouth + 50
+            self.rect.x = player_rect.x - 15 
+            self.rect.y = player_rect.y + mouth 
             
 
     def move_action(self):

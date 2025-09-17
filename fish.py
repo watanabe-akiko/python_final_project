@@ -34,14 +34,14 @@ class Fish:
             # 右を向いているかどうかのフラグ
             self.fRight = True
 
-            self.key_list = {
-                "right": pg.K_d,
-                "left": pg.K_a,
-                "up": pg.K_w,
-                "down": pg.K_s,
-                "fire": pg.K_SPACE,
-                "attack": pg.K_b
-            }
+        self.key_list = {
+            "right": pg.K_d,
+            "left": pg.K_a,
+            "up": pg.K_w,
+            "down": pg.K_s,
+            "fire": pg.K_SPACE,
+            "attack": pg.K_b
+        }
 
         if player == 2:
             # 右を向いているかどうかのフラグ
@@ -191,7 +191,6 @@ class Salmon(Fish):
         if player == 1:
             self.img = pg.transform.flip(self.img, True, False)
 
-
 class Shark(Fish):
     def __init__(self, x, y, screen, key, player):
         super().__init__(x, y, screen, key, player)
@@ -203,6 +202,9 @@ class Shark(Fish):
         # 1Pであれば画像を左右反転
         if player == 1:
             self.img = pg.transform.flip(self.img, True, False)
+            
+        #口の位置
+        self.mouth = 60
 
 
 class Hirame(Fish):
@@ -230,6 +232,8 @@ class Octopus(Fish):
         # 1Pであれば画像を左右反転
         if player == 1:
             self.img = pg.transform.flip(self.img, True, False)
+            
+        #口の位置
         self.mouth = 50
 
 # イカ
