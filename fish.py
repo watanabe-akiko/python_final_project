@@ -28,11 +28,11 @@ class Fish:
         self.key = key
         self.screen = screen
         self.player = player
+        self.mouth = 35
 
         if player == 1:
             # 右を向いているかどうかのフラグ
             self.fRight = True
-        self.mouth = 35
 
             self.key_list = {
                 "right": pg.K_d,
