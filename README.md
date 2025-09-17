@@ -1,2 +1,2 @@
-# python_finel_project
+# python_final_project
 CodeCrysarisのPython基礎講座のfinal project teamサーモン
