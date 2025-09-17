@@ -36,28 +36,30 @@ class Display:
         text_surface = font.render(f"Player1 : {self.player_list[0].get_hp()}", True, pg.Color("BLACK"))
         self.screen.blit(text_surface, (50, 50))
 
-        text_surface = font.render(f"Player2 : {self.player_list[0].get_hp()}", True, pg.Color("BLACK"))
+        text_surface = font.render(f"Player2 : {self.player_list[1].get_hp()}", True, pg.Color("BLACK"))
         self.screen.blit(text_surface, (900, 50))
 
     def colliderect(self):
         # プレイヤー同士の当たり判定
         if self.player_list[0].player_pos.colliderect(self.player_list[1].player_pos):
-            if self.player_list[0] and not self.player_list[1]:
+            if self.player_list[0].attack_now and not self.player_list[1].attack_now:
                 # TODO ヒットストップ
                 # TODO HP処理
+                self.player_list[1].decrease_hp()
                 # TODO 無敵時間
                 pass
-            elif not self.player_list[0] and self.player_list[1]:
+            elif not self.player_list[0].attack_now and self.player_list[1].attack_now:
                 # TODO ヒットストップ
-                # TODO HP処理
+                self.player_list[0].decrease_hp()
                 # TODO 無敵時間
                 pass
-            elif self.player_list[0] and self.player_list[1]:
+            elif self.player_list[0].attack_now and self.player_list[1].attack_now:
                 # とりあえずスルー
                 # TODO 時間があったら、中心座標をつないだ線上に離れる
                 # TODO 音付ける
-                self.player_list[0].decrease_hp()
-                self.player_list[1].decrease_hp()
+                # self.player_list[0].decrease_hp()
+                # self.player_list[1].decrease_hp()
+                pass
             else:
                 # とりあえずスルー
                 # TODO 時間があったら、中心座標をつないだ線上に離れる
