@@ -23,24 +23,45 @@ class Bullet:
 
         # 画面情報
         self.screen = screen
+        
+        self.fRight = True
+        
 
     def reset(self):
         """画面外の初期位置に戻す"""
         self.rect.x = 810
         self.rect.y = -10
 
-    def fire(self, player_rect):
+    def fire(self, player_rect, mouth, fRight):
         """プレイヤー位置から弾を発射する"""
-        self.rect.x = player_rect.x + 50 - 15 
-        self.rect.y = player_rect.y
+        self.fRight = fRight
+        # 右向きの場合
+        if self.fRight == True: 
+            self.rect.x = player_rect.x + 100 - 15 
+            self.rect.y = player_rect.y + mouth
+        # 左向きの場合
+        else:
+            self.rect.x = player_rect.x + 100 - 15 
+            self.rect.y = player_rect.y + mouth + 50
+            
 
     def move_action(self):
         """弾の移動処理"""
-        screen_width, screen_height = self.screen.get_size()
-        if self.rect.x <= screen_width:
-            self.rect.x += self.speed
-            if self.rect.x > screen_width:
-                self.inframe = False
+        # 右向きの場合
+        if self.fRight == True: 
+            screen_width, screen_height = self.screen.get_size()
+            if self.rect.x <= screen_width:
+                self.rect.x += self.speed
+                if self.rect.x > screen_width:
+                    self.inframe = False
+        # 左向きの場合
+        else:
+            screen_width, screen_height = self.screen.get_size()
+            if self.rect.x <= screen_width:
+                self.rect.x -= self.speed
+                if self.rect.x < 0:
+                    self.inframe = False
+        
             
 
     def check_hit(self, target_rect):

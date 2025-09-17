@@ -29,6 +29,7 @@ class Fish:
         self.key = key
         self.screen = screen
         self.player = player
+        self.mouth = 35
 
         self.key_list = {
             "right": pg.K_d,
@@ -134,7 +135,7 @@ class Fish:
     def fire_bullet(self):
         if self.key[self.key_list["fire"]]:
             bullet = Bullet(self.screen, self.player)
-            bullet.fire(self.player_pos)
+            bullet.fire(self.player_pos, self.mouth, self.fRight)
             self.bullets.append(bullet)
         for bul in self.bullets:
             flag = bul.move_action()
@@ -195,3 +196,4 @@ class Octopus(Fish):
             "fire": pg.K_BACKSPACE,
             "attack": pg.K_RSHIFT
         }
+        self.mouth = 50
