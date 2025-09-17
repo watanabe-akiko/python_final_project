@@ -32,6 +32,7 @@ class Fish:
         if player == 1:
             # 右を向いているかどうかのフラグ
             self.fRight = True
+        self.mouth = 35
 
             self.key_list = {
                 "right": pg.K_d,
@@ -151,7 +152,7 @@ class Fish:
     def fire_bullet(self):
         if self.key[self.key_list["fire"]]:
             bullet = Bullet(self.screen, self.player)
-            bullet.fire(self.player_pos)
+            bullet.fire(self.player_pos, self.mouth, self.fRight)
             self.bullets.append(bullet)
         for bul in self.bullets:
             flag = bul.move_action()
@@ -229,6 +230,7 @@ class Octopus(Fish):
         # 1Pであれば画像を左右反転
         if player == 1:
             self.img = pg.transform.flip(self.img, True, False)
+        self.mouth = 50
 
 # イカ
 class Squid(Fish):
@@ -254,3 +256,4 @@ class Robster(Fish):
         # 1Pであれば画像を左右反転
         if player == 1:
             self.img = pg.transform.flip(self.img, True, False)
+
