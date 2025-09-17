@@ -20,6 +20,9 @@ display = Display(screen, pg.key.get_pressed())
 fish1 = Salmon(0, 480, screen, pg.key.get_pressed(), 1)
 fish2 = Octopus(1100, 480, screen, pg.key.get_pressed(), 2) 
 
+display.add_player(fish1)
+display.add_player(fish2)
+
 # 弾追加
 # bullet = Bullet()
 
