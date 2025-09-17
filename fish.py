@@ -12,8 +12,7 @@ class Fish:
         self.player_pos = self.img.get_rect()  # 画像の矩形情報(player_rect)を取得
         self.player_pos.x = x
         self.player_pos.y = y
-        # 右を向いているかどうかのフラグ #右向き：True 左向き：False
-        self.fRight = False
+        
         # 体当たり判定のフラグ
         self.attack_now = False
         self.attack_start_time = 0
@@ -30,14 +29,32 @@ class Fish:
         self.screen = screen
         self.player = player
 
-        self.key_list = {
-            "right": pg.K_d,
-            "left": pg.K_a,
-            "up": pg.K_w,
-            "down": pg.K_s,
-            "fire": pg.K_SPACE,
-            "attack": pg.K_b
-        }
+        if player == 1:
+            # 右を向いているかどうかのフラグ
+            self.fRight = True
+
+            self.key_list = {
+                "right": pg.K_d,
+                "left": pg.K_a,
+                "up": pg.K_w,
+                "down": pg.K_s,
+                "fire": pg.K_SPACE,
+                "attack": pg.K_b
+            }
+
+        if player == 2:
+            # 右を向いているかどうかのフラグ
+            self.fRight = False
+
+            # キー設定を変更
+            self.key_list = {
+                "right": pg.K_RIGHT,
+                "left": pg.K_LEFT,
+                "up": pg.K_UP,
+                "down": pg.K_DOWN,
+                "fire": pg.K_BACKSPACE,
+                "attack": pg.K_RSHIFT
+            }
 
     ## メソッド ##
     def get_hp(self):
@@ -160,7 +177,6 @@ class Fish:
         self.fire_bullet()
         self.screen.blit(self.img, self.player_pos)
 
-
 # サーモンクラス
 class Salmon(Fish):
     def __init__(self, x, y, screen, key, player):
@@ -169,10 +185,37 @@ class Salmon(Fish):
         # 画像をサーモンに変更
         self.img = pg.image.load("images/fish_sakana_sake.png")
         self.img = pg.transform.scale(self.img, (self.size, self.size))
+        
+        # 1Pであれば画像を左右反転
+        if player == 1:
+            self.img = pg.transform.flip(self.img, True, False)
 
-        # 右を向いているかどうかのフラグ(初期設定で右向きに設定)
-        self.fRight = True
-        self.img = pg.transform.flip(self.img, True, False)
+
+class Shark(Fish):
+    def __init__(self, x, y, screen, key, player):
+        super().__init__(x, y, screen, key, player)
+        
+        # 画像をサメに変更
+        self.img = pg.image.load("images/kodai_megalodon.png")
+        self.img = pg.transform.scale(self.img, (self.size, self.size))
+
+        # 1Pであれば画像を左右反転
+        if player == 1:
+            self.img = pg.transform.flip(self.img, True, False)
+
+
+class Hirame(Fish):
+    def __init__(self, x, y, screen, key, player):
+        super().__init__(x, y, screen, key, player)
+        
+        # 画像をヒラメに変更
+        self.img = pg.image.load("images/fish_sakana_hirame.png")
+        self.img = pg.transform.scale(self.img, (self.size, self.size))
+
+        # 1Pであれば画像を左右反転
+        if player == 1:
+            self.img = pg.transform.flip(self.img, True, False)
+
 
 # タコクラス
 class Octopus(Fish):
@@ -183,15 +226,31 @@ class Octopus(Fish):
         self.img = pg.image.load("images/fish_tako_oyogu.png")
         self.img = pg.transform.scale(self.img, (self.size, self.size))
 
-        # 右を向いているかどうかのフラグ
-        self.fRight = False
+        # 1Pであれば画像を左右反転
+        if player == 1:
+            self.img = pg.transform.flip(self.img, True, False)
 
-        # キー設定を変更
-        self.key_list = {
-            "right": pg.K_RIGHT,
-            "left": pg.K_LEFT,
-            "up": pg.K_UP,
-            "down": pg.K_DOWN,
-            "fire": pg.K_BACKSPACE,
-            "attack": pg.K_RSHIFT
-        }
+# イカ
+class Squid(Fish):
+    def __init__(self, x, y, screen, key, player):
+        super().__init__(x, y, screen, key, player)
+        # 画像をタコに変更
+        self.img = pg.image.load("images/fish_sakana_yariika_syokuwan.png")
+        self.img = pg.transform.scale(self.img, (self.size, self.size))
+
+        # 1Pであれば画像を左右反転
+        if player == 1:
+            self.img = pg.transform.flip(self.img, True, False)
+
+
+# ロブスター
+class Robster(Fish):
+    def __init__(self, x, y, screen, key, player):
+        super().__init__(x, y, screen, key, player)
+        # 画像をロブスターに変更
+        self.img = pg.image.load("images/fish_lobster.png")
+        self.img = pg.transform.scale(self.img, (self.size, self.size))
+
+        # 1Pであれば画像を左右反転
+        if player == 1:
+            self.img = pg.transform.flip(self.img, True, False)

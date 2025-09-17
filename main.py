@@ -2,7 +2,7 @@ import pygame as pg
 import sys
 import random
 
-from fish import Salmon,Octopus
+from fish import Salmon,Shark,Hirame,Octopus,Squid,Robster
 # from bullet import Bullet
 from display import Display
 
@@ -18,7 +18,7 @@ display = Display(screen, pg.key.get_pressed())
 
 # キャラクター追加
 fish1 = Salmon(0, 480, screen, pg.key.get_pressed(), 1)
-fish2 = Octopus(1100, 480, screen, pg.key.get_pressed(), 2) ###追加
+fish2 = Octopus(1100, 480, screen, pg.key.get_pressed(), 2) 
 
 # 弾追加
 # bullet = Bullet()
