@@ -1,7 +1,7 @@
 import pygame as pg
 
 # from bullet import Bullet # 弾クラスをインポート
-# 1200 676
+
 # ボタン押しながら
 class Fish:
     def __init__(self, x, y, screen, key):
@@ -13,7 +13,7 @@ class Fish:
         self.player_pos.x = x
         self.player_pos.y = y
         # 右を向いているかどうかのフラグ #右向き：True 左向き：False
-        self.fRight = True
+        self.fRight = False
         # 移動量
         self.move_amount = 10
 
@@ -109,6 +109,19 @@ class Fish:
         self.screen.blit(self.img, self.player_pos)
 
 
+# サーモンクラス
+class Salmon(Fish):
+    def __init__(self, x, y, screen, key):
+        super().__init__(x, y, screen, key)
+
+        # 画像をサーモンに変更
+        self.img = pg.image.load("images/fish_sakana_sake.png")
+        self.img = pg.transform.scale(self.img, (self.size, self.size))
+
+        # 右を向いているかどうかのフラグ
+        self.fRight = False
+
+# タコクラス
 class Octopus(Fish):
     def __init__(self, x, y, screen, key):
         super().__init__(x, y, screen, key)
