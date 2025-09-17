@@ -1,10 +1,10 @@
 import pygame as pg
-
+from bullet import Bullet
 # from bullet import Bullet # 弾クラスをインポート
 
 # ボタン押しながら
 class Fish:
-    def __init__(self, x, y, screen, key):
+    def __init__(self, x, y, screen, key, player):
         self.img = pg.image.load("images/fish_sakana_sake.png")
         self.size = 100
         self.img = pg.transform.scale(self.img, (self.size, self.size))
@@ -28,6 +28,7 @@ class Fish:
 
         self.key = key
         self.screen = screen
+        self.player = player
 
         self.key_list = {
             "right": pg.K_d,
@@ -131,9 +132,20 @@ class Fish:
 
     # 弾を打つ
     def fire_bullet(self):
-        """スペースキーが押された時に弾を発射する"""
-        # TODO：未実装
-        # ここでBulletクラスを呼び出して、self.bulletsの配列に追加する
+        if self.key[self.key_list["fire"]]:
+            bullet = Bullet(self.screen, self.player)
+            bullet.fire(self.player_pos)
+            self.bullets.append(bullet)
+        for bul in self.bullets:
+            flag = bul.move_action()
+            self.screen.blit(bul.img, bul.rect)
+        del_index = [] 
+        for bul in self.bullets:   
+            if bul.inframe == False:
+                del_index.append(bul)
+        self.bullets = [i for i in self.bullets if not i in del_index]      
+            
+        
 
 
     def update(self):
@@ -145,13 +157,14 @@ class Fish:
         self.key = pg.key.get_pressed()
         self.move_action()
         self.attack()
+        self.fire_bullet()
         self.screen.blit(self.img, self.player_pos)
 
 
 # サーモンクラス
 class Salmon(Fish):
-    def __init__(self, x, y, screen, key):
-        super().__init__(x, y, screen, key)
+    def __init__(self, x, y, screen, key, player):
+        super().__init__(x, y, screen, key, player)
 
         # 画像をサーモンに変更
         self.img = pg.image.load("images/fish_sakana_sake.png")
@@ -163,8 +176,8 @@ class Salmon(Fish):
 
 # タコクラス
 class Octopus(Fish):
-    def __init__(self, x, y, screen, key):
-        super().__init__(x, y, screen, key)
+    def __init__(self, x, y, screen, key, player):
+        super().__init__(x, y, screen, key, player)
 
         # 画像をタコに変更
         self.img = pg.image.load("images/fish_tako_oyogu.png")
@@ -179,6 +192,6 @@ class Octopus(Fish):
             "left": pg.K_LEFT,
             "up": pg.K_UP,
             "down": pg.K_DOWN,
-            "fire": pg.K_KP_ENTER,
+            "fire": pg.K_BACKSPACE,
             "attack": pg.K_RSHIFT
         }
