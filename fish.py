@@ -14,6 +14,9 @@ class Fish:
         self.player_pos.y = y
         # 右を向いているかどうかのフラグ #右向き：True 左向き：False
         self.fRight = False
+        # 体当たり判定のフラグ
+        self.attack_now = False
+        self.attack_start_time = 0
         # 移動量
         self.move_amount = 10
 
@@ -31,7 +34,8 @@ class Fish:
             "left": pg.K_a,
             "up": pg.K_w,
             "down": pg.K_s,
-            "fire": pg.K_SPACE
+            "fire": pg.K_SPACE,
+            "attack": pg.K_b
         }
 
     ## メソッド ##
@@ -45,7 +49,7 @@ class Fish:
 
     def move_action(self):
         """キー入力に応じてキャラクターを移動させる"""
-        
+
         # 画面の幅と高さを取得
         screen_width, screen_height = self.screen.get_size()
 
@@ -62,8 +66,6 @@ class Fish:
         elif self.player_pos.y > screen_height - self.size:
             self.player_pos.y = screen_height - self.size
 
-
-                
         if self.key[self.key_list["right"]]:
             # 右向きキーが押された時、X座標を増やす
             self.player_pos.x += self.move_amount
@@ -88,8 +90,44 @@ class Fish:
             # 下向きキーが押された時、Y座標を増やす
             self.player_pos.y += self.move_amount
 
-        # # キャラクターを表示
-        self.screen.blit(self.img, self.player_pos)
+    # 体当たりを行う
+    def attack(self):
+        """攻撃キーが押された時に体当たりを行う"""
+        # 攻撃キーが押された時の時間を取得
+        now = pg.time.get_ticks()
+
+        if self.key[self.key_list["attack"]] and self.attack_now == False:
+            # どの方向に体当たりするか決定
+            if self.key[self.key_list["right"]]:
+                self.attack_direction = "right"
+            elif self.key[self.key_list["left"]]:
+                self.attack_direction = "left"
+            elif self.key[self.key_list["up"]]:
+                self.attack_direction = "up"
+            elif self.key[self.key_list["down"]]:
+                self.attack_direction = "down"
+            else:
+                self.attack_direction = None
+
+            if self.attack_direction:
+                self.attack_now = True
+                self.attack_start_time = now
+
+        if self.attack_now == True:
+            # 攻撃中、最初に押した方向キーの方向にスピードアップ
+            if self.attack_direction == "right":
+                self.player_pos.x += self.move_amount * 2
+            elif self.attack_direction == "left":
+                self.player_pos.x -= self.move_amount * 2
+            elif self.attack_direction == "up":
+                self.player_pos.y -= self.move_amount * 2
+            elif self.attack_direction == "down":
+                self.player_pos.y += self.move_amount * 2
+
+        # 1秒経ったら体当たり終了
+        if now - self.attack_start_time >= 100: #100ミリ秒
+            self.attack_now = False
+
 
     # 弾を打つ
     def fire_bullet(self):
@@ -106,6 +144,7 @@ class Fish:
                 pg.quit()
         self.key = pg.key.get_pressed()
         self.move_action()
+        self.attack()
         self.screen.blit(self.img, self.player_pos)
 
 
@@ -118,8 +157,9 @@ class Salmon(Fish):
         self.img = pg.image.load("images/fish_sakana_sake.png")
         self.img = pg.transform.scale(self.img, (self.size, self.size))
 
-        # 右を向いているかどうかのフラグ
-        self.fRight = False
+        # 右を向いているかどうかのフラグ(初期設定で右向きに設定)
+        self.fRight = True
+        self.img = pg.transform.flip(self.img, True, False)
 
 # タコクラス
 class Octopus(Fish):
@@ -139,5 +179,6 @@ class Octopus(Fish):
             "left": pg.K_LEFT,
             "up": pg.K_UP,
             "down": pg.K_DOWN,
-            "fire": pg.K_KP_ENTER
+            "fire": pg.K_KP_ENTER,
+            "attack": pg.K_RSHIFT
         }
