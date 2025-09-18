@@ -53,13 +53,12 @@ class Display:
         if self.player_list[0].player_pos.colliderect(self.player_list[1].player_pos):
             if self.player_list[0].attack_now and not self.player_list[1].attack_now:
                 # TODO ヒットストップ
-                # TODO HP処理
-                self.player_list[1].decrease_hp()
+                self.player_list[1].decrease_hp(10)
                 # TODO 無敵時間
                 pass
             elif not self.player_list[0].attack_now and self.player_list[1].attack_now:
                 # TODO ヒットストップ
-                self.player_list[0].decrease_hp()
+                self.player_list[0].decrease_hp(5)
                 # TODO 無敵時間
                 pass
             elif self.player_list[0].attack_now and self.player_list[1].attack_now:

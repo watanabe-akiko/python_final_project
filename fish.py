@@ -14,8 +14,14 @@ class Fish:
         self.player_pos.y = y
         
         # 体当たり判定のフラグ
+        self.is_ready_attack = True
         self.attack_now = False
         self.attack_start_time = 0
+        
+        # 弾の当たり判定のフラグ
+        self.bullet_is_ready = True
+        self.bullet_start_time = 0
+        
         # 移動量
         self.move_amount = 10
 
@@ -55,7 +61,7 @@ class Fish:
                 "up": pg.K_UP,
                 "down": pg.K_DOWN,
                 "fire": pg.K_BACKSPACE,
-                "attack": pg.K_RSHIFT
+                "attack": pg.K_RETURN
             }
 
     ## メソッド ##
@@ -63,9 +69,9 @@ class Fish:
         """メイン表示用にプレイヤーの体力を返す"""
         return self.player_hp
     
-    def decrease_hp(self):
+    def decrease_hp(self, damage=1):
         """弾が当たったらプレイヤーの体力を1減らす"""
-        self.player_hp -= 1
+        self.player_hp -= damage
 
     def move_action(self):
         """キー入力に応じてキャラクターを移動させる"""
@@ -116,7 +122,7 @@ class Fish:
         # 攻撃キーが押された時の時間を取得
         now = pg.time.get_ticks()
 
-        if self.key[self.key_list["attack"]] and self.attack_now == False:
+        if self.key[self.key_list["attack"]] and self.attack_now == False and self.is_ready_attack:
             # どの方向に体当たりするか決定
             if self.key[self.key_list["right"]]:
                 self.attack_direction = "right"
@@ -130,10 +136,11 @@ class Fish:
                 self.attack_direction = None
 
             if self.attack_direction:
+                self.is_ready_attack = False
                 self.attack_now = True
                 self.attack_start_time = now
 
-        if self.attack_now == True:
+        if self.attack_now == True and not self.is_ready_attack:
             # 攻撃中、最初に押した方向キーの方向にスピードアップ
             if self.attack_direction == "right":
                 self.player_pos.x += self.move_amount * 2
@@ -147,14 +154,18 @@ class Fish:
         # 1秒経ったら体当たり終了
         if now - self.attack_start_time >= 100: #100ミリ秒
             self.attack_now = False
+        if now - self.attack_start_time >= 500: #500ミリ秒
+            self.is_ready_attack = True
 
 
     # 弾を打つ
     def fire_bullet(self):
-        if self.key[self.key_list["fire"]]:
+        if self.key[self.key_list["fire"]] and self.bullet_is_ready:
             bullet = Bullet(self.screen, self.player)
             bullet.fire(self.player_pos, self.mouth, self.fRight)
             self.bullets.append(bullet)
+            self.bullet_is_ready = False
+            self.bullet_start_time = pg.time.get_ticks()
         for bul in self.bullets:
             flag = bul.move_action()
             self.screen.blit(bul.img, bul.rect)
@@ -163,6 +174,11 @@ class Fish:
             if bul.inframe == False:
                 del_index.append(bul)
         self.bullets = [i for i in self.bullets if not i in del_index]
+        
+        # 0.5秒経ったら再度弾を打てるようにする
+        now = pg.time.get_ticks()
+        if now - self.bullet_start_time >= 500: #500ミリ秒
+            self.bullet_is_ready = True
         
 
 
