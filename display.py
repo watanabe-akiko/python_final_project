@@ -52,24 +52,30 @@ class Display:
         # プレイヤー同士の当たり判定
         if self.player_list[0].player_pos.colliderect(self.player_list[1].player_pos):
             if self.player_list[0].attack_now and not self.player_list[1].attack_now:
-                # TODO ヒットストップ
+                # ダメージ処理
                 self.player_list[1].decrease_hp(10)
-                # TODO 無敵時間
-                pass
+                
+                # ヒットストップ
+                if self.player_list[1].player_hp > 0:
+                    pg.time.delay(100)
+                else:
+                    pg.time.delay(500)
+                
             elif not self.player_list[0].attack_now and self.player_list[1].attack_now:
-                # TODO ヒットストップ
+                # ダメージ処理
                 self.player_list[0].decrease_hp(5)
-                # TODO 無敵時間
-                pass
+                
+                # ヒットストップ
+                if self.player_list[0].player_hp > 0:
+                    pg.time.delay(100)
+                else:
+                    pg.time.delay(500)
+                
             elif self.player_list[0].attack_now and self.player_list[1].attack_now:
-                # とりあえずスルー
                 # TODO 時間があったら、中心座標をつないだ線上に離れる
                 # TODO 音付ける
-                # self.player_list[0].decrease_hp()
-                # self.player_list[1].decrease_hp()
                 pass
             else:
-                # とりあえずスルー
                 # TODO 時間があったら、中心座標をつないだ線上に離れる
                 # TODO 音付ける
                 pass

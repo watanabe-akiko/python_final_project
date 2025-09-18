@@ -18,8 +18,8 @@ while True:
     # 画面表示の追加
     display = Display(screen, pg.key.get_pressed())
     # キャラクター追加
-    fish1 = Salmon(0, 480, screen, pg.key.get_pressed(), 1)
-    fish2 = Shark(1100, 480, screen, pg.key.get_pressed(), 2) 
+    fish1 = Hirame(0, 480, screen, pg.key.get_pressed(), 1)
+    fish2 = Octopus(1100, 480, screen, pg.key.get_pressed(), 2) 
     display.add_player(fish1)
     display.add_player(fish2)
     
