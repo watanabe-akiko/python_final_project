@@ -53,12 +53,12 @@ class Display:
         if self.player_list[0].player_pos.colliderect(self.player_list[1].player_pos):
             if self.player_list[0].attack_now and not self.player_list[1].attack_now:
                 # TODO ヒットストップ
-                self.player_list[1].decrease_hp(10)
+                self.player_list[1].decrease_hp(self.player_list[0].attack_power)
                 # TODO 無敵時間
                 pass
             elif not self.player_list[0].attack_now and self.player_list[1].attack_now:
                 # TODO ヒットストップ
-                self.player_list[0].decrease_hp(5)
+                self.player_list[0].decrease_hp(self.player_list[1].attack_power)
                 # TODO 無敵時間
                 pass
             elif self.player_list[0].attack_now and self.player_list[1].attack_now:
@@ -77,11 +77,11 @@ class Display:
         # 遠隔攻撃の当たり判定
         for bullet in self.player_list[0].bullets:
             if self.player_list[1].player_pos.colliderect(bullet.rect):
-                self.player_list[1].decrease_hp()
+                self.player_list[1].decrease_hp(self.player_list[0].bullet_attack_power)
         for bullet in self.player_list[1].bullets:
             if self.player_list[0].player_pos.colliderect(bullet.rect):
-                self.player_list[0].decrease_hp()
-    
+                self.player_list[0].decrease_hp(self.player_list[1].bullet_attack_power)
+
     # HPのバーを表示する
     def hp_bar(self):
         player1_hp = int((self.player_list[0].player_hp / self.player_list[0].hp_max) * 496)

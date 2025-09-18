@@ -17,12 +17,20 @@ class Fish:
         self.is_ready_attack = True
         self.attack_now = False
         self.attack_start_time = 0
+        # 攻撃力
+        self.attack_power = 5
+        # 攻撃間隔
+        self.attack_interval = 500  # ミリ秒
         
         # 弾の当たり判定のフラグ
         self.bullet_is_ready = True
         self.bullet_start_time = 0
+        #　弾の攻撃力
+        self.bullet_attack_power = 1
+        self.bullet_attack_interval = 500  # ミリ秒
+
         
-        # 移動量
+        # 移動量(スピード)
         self.move_amount = 10
 
         # 体力
@@ -154,7 +162,8 @@ class Fish:
         # 1秒経ったら体当たり終了
         if now - self.attack_start_time >= 100: #100ミリ秒
             self.attack_now = False
-        if now - self.attack_start_time >= 500: #500ミリ秒
+        # 攻撃間隔を過ぎたら再度体当たりできるようにする
+        if now - self.attack_start_time >= self.attack_interval: #魚に応じた攻撃間隔
             self.is_ready_attack = True
 
 
@@ -177,7 +186,7 @@ class Fish:
         
         # 0.5秒経ったら再度弾を打てるようにする
         now = pg.time.get_ticks()
-        if now - self.bullet_start_time >= 500: #500ミリ秒
+        if now - self.bullet_start_time >= self.bullet_attack_interval: #500ミリ秒
             self.bullet_is_ready = True
         
 
@@ -210,6 +219,10 @@ class Salmon(Fish):
 class Shark(Fish):
     def __init__(self, x, y, screen, key, player):
         super().__init__(x, y, screen, key, player)
+
+        self.attack_power = 7
+        self.attack_interval = 700  # ミリ秒
+
         
         # 画像をサメに変更
         self.img = pg.image.load("images/kodai_megalodon.png")
@@ -226,6 +239,10 @@ class Shark(Fish):
 class Hirame(Fish):
     def __init__(self, x, y, screen, key, player):
         super().__init__(x, y, screen, key, player)
+
+        self.move_amount = 15
+        self.hp_max = 90
+        self.player_hp = 90
         
         # 画像をヒラメに変更
         self.img = pg.image.load("images/fish_sakana_hirame.png")
@@ -240,6 +257,9 @@ class Hirame(Fish):
 class Octopus(Fish):
     def __init__(self, x, y, screen, key, player):
         super().__init__(x, y, screen, key, player)
+
+        self.attack_power = 4
+        self.bullet_attack_interval = 200  # ミリ秒
 
         # 画像をタコに変更
         self.img = pg.image.load("images/fish_tako_oyogu.png")
@@ -256,6 +276,11 @@ class Octopus(Fish):
 class Squid(Fish):
     def __init__(self, x, y, screen, key, player):
         super().__init__(x, y, screen, key, player)
+
+        self.bullet_attack_power = 3
+        self.move_amount = 8
+        self.size = 125
+
         # 画像をタコに変更
         self.img = pg.image.load("images/fish_sakana_yariika_syokuwan.png")
         self.img = pg.transform.scale(self.img, (self.size, self.size))
@@ -269,6 +294,11 @@ class Squid(Fish):
 class Robster(Fish):
     def __init__(self, x, y, screen, key, player):
         super().__init__(x, y, screen, key, player)
+
+        self.bullet_attack_power = 0.7
+        self.hp_max = 150
+        self.player_hp = 150
+
         # 画像をロブスターに変更
         self.img = pg.image.load("images/fish_lobster.png")
         self.img = pg.transform.scale(self.img, (self.size, self.size))
