@@ -10,7 +10,7 @@ pg.init()
 
 # 画面設定
 screen = pg.display.set_mode((1200, 676))
-pg.display.set_caption("魚格闘ゲーム") 
+pg.display.set_caption("Aqua Brawl") 
 
 # ゲーム起動
 while True:

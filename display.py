@@ -105,8 +105,12 @@ class Display:
 
         # タイトル表示
         font = pg.font.SysFont(None, 80)
-        text_surface = font.render(f"Fish Battle !", True, pg.Color("BLACK"))
+        text_surface = font.render(f"Aqua Brawl", True, pg.Color("BLACK"))
         self.screen.blit(text_surface, (50, 50))
+        
+        font = pg.font.SysFont(None, 80)
+        text_surface = font.render(f"SPACE : Start", True, pg.Color("BLACK"))
+        self.screen.blit(text_surface, (50, 250))
     
     def game_scene(self):
         for i in range(3, 0, -1):
