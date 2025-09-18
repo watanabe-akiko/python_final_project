@@ -194,7 +194,21 @@ class Fish:
         now = pg.time.get_ticks()
         if now - self.bullet_start_time >= self.bullet_attack_interval: #500ミリ秒
             self.bullet_is_ready = True
-        
+
+    def defeat_effect(self):
+        """負けた時のエフェクト"""
+        now = pg.time.get_ticks()
+        # 体力が0になってから3秒間左右のフリップ
+        if now % 300 < 150:
+            if self.fRight == True:
+                self.img = pg.transform.flip(self.img, True, False)
+                self.fRight = False
+                self.screen.blit(self.img, self.player_pos)
+        else:
+            if self.fRight == False:
+                self.img = pg.transform.flip(self.img, True, False)
+                self.fRight = True
+                self.screen.blit(self.img, self.player_pos)
 
 
     def update(self):
@@ -208,6 +222,8 @@ class Fish:
         self.attack()
         self.fire_bullet()
         self.screen.blit(self.img, self.player_pos)
+
+        # 体当たりエフェクト
         if self.attack_now:
             if self.attack_direction == "right":
                 # 体の半分から描画

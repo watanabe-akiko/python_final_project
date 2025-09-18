@@ -41,6 +41,32 @@ class Display:
         
         # 終了判定
         if self.player_list[0].get_hp() < 1 or self.player_list[1].get_hp() < 1:
+            # 負けた時のエフェクト（2秒間アニメーション）
+            defeat_time = pg.time.get_ticks()
+            while True:
+                # 背景再描画
+                self.screen.blit(self.bg, self.rect_bg)
+                # VS再描画
+                self.screen.blit(self.vs, self.rect_vs)
+                # HP再描画
+                self.hp_bar()
+                
+                # プレイヤー再描画（エフェクト付き）
+                if self.player_list[0].get_hp() < 1:
+                    self.player_list[0].defeat_effect()
+                else:
+                    self.screen.blit(self.player_list[0].img, self.player_list[0].player_pos)
+                if self.player_list[1].get_hp() < 1:
+                    self.player_list[1].defeat_effect()
+                else:
+                    self.screen.blit(self.player_list[1].img, self.player_list[1].player_pos)
+
+                pg.display.update()
+                pg.time.Clock().tick(60)
+
+                # 2秒経過したら結果表示
+                if pg.time.get_ticks() - defeat_time > 2000:
+                    break
             return False
 
         # HP表示
