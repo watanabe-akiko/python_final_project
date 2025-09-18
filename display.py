@@ -30,7 +30,15 @@ class Display:
         self.shark = Shark(1100, 480, screen, pg.key.get_pressed(), 2)
         self.squid = Squid(0, 480, screen, pg.key.get_pressed(), 1)
         self.robster = Robster(1100, 480, screen, pg.key.get_pressed(), 2)
-    
+
+        self.result_logo = pg.image.load("images/result_logo.png")
+        self.rect_result_logo = self.result_logo.get_rect()
+        self.result_logo = pg.transform.scale(self.result_logo, (300, 200))
+
+        self.winner_logo = pg.image.load("images/winner_logo.png")
+        self.rect_winner_logo = self.winner_logo.get_rect()
+        self.winner_logo = pg.transform.scale(self.winner_logo, (500, 400))
+
     def add_player(self, player):
         self.player_list.append(player)
 
@@ -45,9 +53,9 @@ class Display:
         self.screen.blit(self.vs, self.rect_vs)
         
         font = pg.font.SysFont(None, 30)
-        text_surface = font.render(f"Player 1", True, pg.Color("BLACK"))
+        text_surface = font.render(f"Player 1", True, pg.Color("BLUE"))
         self.screen.blit(text_surface, (45, 65))
-        text_surface = font.render(f"Player 2", True, pg.Color("BLACK"))
+        text_surface = font.render(f"Player 2", True, pg.Color("RED"))
         self.screen.blit(text_surface, (1075, 65))
 
         # 当たり判定
@@ -241,19 +249,32 @@ class Display:
     def end_scene(self):
         # 背景表示
         self.screen.blit(self.bg, self.rect_bg)
-        
+
+        # Resultロゴの表示
+        self.screen.blit(self.result_logo, (10, -20))
+        # winnerロゴの表示
+        self.screen.blit(self.winner_logo, (380, -20))
+
         # 勝者表示
-        font = pg.font.SysFont(None, 80)
+        font_win = pg.font.SysFont(None, 100)
         if self.player_list[0].get_hp() > self.player_list[1].get_hp():
-            text_surface = font.render(f"Win Player1", True, pg.Color("BLACK"))
-            self.screen.blit(text_surface, (50, 50))
+            text_surface = font_win.render(f"Player1", True, pg.Color("BLUE"))
+            self.screen.blit(text_surface, (500, 500))
+            # 勝者の画像を表示
+            winner = pg.transform.scale(self.player_list[0].img, (250, 250))
+            self.screen.blit(winner, (500, 250))
+
         elif self.player_list[0].get_hp() < self.player_list[1].get_hp():
-            text_surface = font.render(f"Win Player2", True, pg.Color("BLACK"))
-            self.screen.blit(text_surface, (50, 50))
+            text_surface = font_win.render(f"Player2", True, pg.Color("RED"))
+            self.screen.blit(text_surface, (500, 500))
+            # 勝者の画像を表示
+            winner = pg.transform.scale(self.player_list[1].img, (250, 250))
+            self.screen.blit(winner, (500, 250))
         else:
-            text_surface = font.render(f"Draw", True, pg.Color("BLACK"))
-            self.screen.blit(text_surface, (50, 50))
+            text_surface = font_win.render(f"Draw", True, pg.Color("BLACK"))
+            self.screen.blit(text_surface, (500, 500))
 
         # コンテニュー
-        text_surface = font.render(f"CONTINUE? Y / N", True, pg.Color("BLACK"))
-        self.screen.blit(text_surface, (50, 200))
+        font_continue = pg.font.SysFont(None, 55)
+        text_surface = font_continue.render(f"CONTINUE? Y / N", True, pg.Color("BLACK"))
+        self.screen.blit(text_surface, (850, 600))
