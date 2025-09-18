@@ -20,7 +20,8 @@ class Fish:
         self.move_amount = 10
 
         # 体力
-        self.player_hp = 3
+        self.hp_max = 100
+        self.player_hp = 100
 
         # 弾のリスト
         self.bullets = []
@@ -161,8 +162,7 @@ class Fish:
         for bul in self.bullets:   
             if bul.inframe == False:
                 del_index.append(bul)
-        self.bullets = [i for i in self.bullets if not i in del_index]      
-            
+        self.bullets = [i for i in self.bullets if not i in del_index]
         
 
 
