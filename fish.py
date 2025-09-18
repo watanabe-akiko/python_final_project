@@ -8,6 +8,12 @@ class Fish:
         self.img = pg.image.load("images/fish_sakana_sake.png")
         self.size = 100
         self.img = pg.transform.scale(self.img, (self.size, self.size))
+        
+        self.effect_line = pg.image.load("images/koukasen.png")
+        self.size = 100
+        self.effect_line = pg.transform.scale(self.effect_line, (self.size, self.size))
+        # 半透明
+        self.effect_line.set_alpha(128)
 
         self.player_pos = self.img.get_rect()  # 画像の矩形情報(player_rect)を取得
         self.player_pos.x = x
@@ -202,6 +208,23 @@ class Fish:
         self.attack()
         self.fire_bullet()
         self.screen.blit(self.img, self.player_pos)
+        if self.attack_now:
+            if self.attack_direction == "right":
+                # 体の半分から描画
+                self.screen.blit(self.effect_line, (self.player_pos.x - self.size//2, self.player_pos.y))
+            elif self.attack_direction == "left":
+                # 体の半分から描画
+                self.screen.blit(self.effect_line, (self.player_pos.x + self.size//2, self.player_pos.y))
+            elif self.attack_direction == "up":
+                # 画像を90度かたむける
+                self.effect_line = pg.transform.rotate(self.effect_line, 90)
+                self.screen.blit(self.effect_line, (self.player_pos.x, self.player_pos.y + self.size//2))
+                self.effect_line = pg.transform.rotate(self.effect_line, -90)
+            elif self.attack_direction == "down":
+                # 画像を90度かたむける
+                self.effect_line = pg.transform.rotate(self.effect_line, 90)
+                self.screen.blit(self.effect_line, (self.player_pos.x, self.player_pos.y - self.size//2))
+                self.effect_line = pg.transform.rotate(self.effect_line, -90)
 
 # サーモンクラス
 class Salmon(Fish):
