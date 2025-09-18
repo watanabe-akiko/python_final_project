@@ -17,6 +17,7 @@ class Bullet:
         self.rect.y = y
         self.player = player
         self.inframe = True
+        self.rotate_count = 0
 
         # 移動速度
         self.speed = 10
@@ -52,6 +53,10 @@ class Bullet:
             screen_width, screen_height = self.screen.get_size()
             if self.rect.x <= screen_width:
                 self.rect.x += self.speed
+                if self.rotate_count == 10:
+                    self.img = pg.transform.rotate(self.img, -90)
+                    self.rotate_count = 0
+                self.rotate_count += 1
                 if self.rect.x > screen_width:
                     self.inframe = False
         # 左向きの場合
@@ -59,6 +64,10 @@ class Bullet:
             screen_width, screen_height = self.screen.get_size()
             if self.rect.x <= screen_width:
                 self.rect.x -= self.speed
+                if self.rotate_count == 10:
+                    self.img = pg.transform.rotate(self.img, 90)
+                    self.rotate_count = 0
+                self.rotate_count += 1
                 if self.rect.x < 0:
                     self.inframe = False
         
@@ -75,3 +84,147 @@ class Bullet:
                 pg.quit()
         self.move_action()
         self.screen.blit(self.img, self.rect)
+        
+class SalmonBullet(Bullet):
+    def __init__(self, screen, player, x=810, y=-10):
+        # 画像の読み込みとサイズ調整
+        self.img = pg.image.load("images/ball09_orange.png")
+        self.size = 30
+        self.img = pg.transform.scale(self.img, (self.size, self.size))
+
+        # 弾の位置（rect）
+        self.rect = self.img.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.player = player
+        self.inframe = True
+
+        # 移動速度
+        self.speed = 10
+
+        # 画面情報
+        self.screen = screen
+        
+        self.fRight = True
+        
+        self.rotate_count = 0
+        
+class SharkBullet(Bullet):
+    def __init__(self, screen, player, x=810, y=-10):
+        # 画像の読み込みとサイズ調整
+        self.img = pg.image.load("images/gin_dangan_silver_bullet.png")
+        self.size = 30
+        self.img = pg.transform.scale(self.img, (self.size, self.size))
+
+        # 弾の位置（rect）
+        self.rect = self.img.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.player = player
+        self.inframe = True
+
+        # 移動速度
+        self.speed = 10
+
+        # 画面情報
+        self.screen = screen
+        
+        self.fRight = True
+        
+        self.rotate_count = 0
+        
+class HirameBullet(Bullet):
+    def __init__(self, screen, player, x=810, y=-10):
+        # 画像の読み込みとサイズ調整
+        self.img = pg.image.load("images/bean_hirame.png")
+        self.size = 30
+        self.img = pg.transform.scale(self.img, (self.size, self.size))
+
+        # 弾の位置（rect）
+        self.rect = self.img.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.player = player
+        self.inframe = True
+
+        # 移動速度
+        self.speed = 10
+
+        # 画面情報
+        self.screen = screen
+        
+        self.fRight = True
+        
+        self.rotate_count = 0
+
+class OctopusBullet(Bullet):
+    def __init__(self, screen, player, x=810, y=-10):
+        # 画像の読み込みとサイズ調整
+        self.img = pg.image.load("images/octopus_baby.png")
+        self.size = 30
+        self.img = pg.transform.scale(self.img, (self.size, self.size))
+
+        # 弾の位置（rect）
+        self.rect = self.img.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.player = player
+        self.inframe = True
+
+        # 移動速度
+        self.speed = 10
+
+        # 画面情報
+        self.screen = screen
+        
+        self.fRight = True
+        
+        self.rotate_count = 0
+
+class SquidBullet(Bullet):
+    def __init__(self, screen, player, x=810, y=-10):
+        # 画像の読み込みとサイズ調整
+        self.img = pg.image.load("images/ball10_black.png")
+        self.size = 30
+        self.img = pg.transform.scale(self.img, (self.size, self.size))
+
+        # 弾の位置（rect）
+        self.rect = self.img.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.player = player
+        self.inframe = True
+
+        # 移動速度
+        self.speed = 10
+
+        # 画面情報
+        self.screen = screen
+        
+        self.fRight = True
+        
+        self.rotate_count = 0
+        
+class RobsterBullet(Bullet):
+    def __init__(self, screen, player, x=810, y=-10):
+        # 画像の読み込みとサイズ調整
+        self.img = pg.image.load("images/scissor_lobster.png")
+        self.size = 50
+        self.img = pg.transform.scale(self.img, (self.size, self.size))
+
+        # 弾の位置（rect）
+        self.rect = self.img.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.player = player
+        self.inframe = True
+
+        # 移動速度
+        self.speed = 10
+
+        # 画面情報
+        self.screen = screen
+        
+        self.fRight = True
+        
+        self.rotate_count = 0

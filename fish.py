@@ -1,5 +1,12 @@
 import pygame as pg
 from bullet import Bullet
+from bullet import SalmonBullet
+from bullet import SharkBullet
+from bullet import HirameBullet
+from bullet import OctopusBullet
+from bullet import SquidBullet
+from bullet import RobsterBullet
+
 # from bullet import Bullet # 弾クラスをインポート
 
 # ボタン押しながら
@@ -238,7 +245,27 @@ class Salmon(Fish):
         # 1Pであれば画像を左右反転
         if player == 1:
             self.img = pg.transform.flip(self.img, True, False)
-
+    def fire_bullet(self):
+        if self.key[self.key_list["fire"]] and self.bullet_is_ready:
+            bullet = SalmonBullet(self.screen, self.player)
+            bullet.fire(self.player_pos, self.mouth, self.fRight)
+            self.bullets.append(bullet)
+            self.bullet_is_ready = False
+            self.bullet_start_time = pg.time.get_ticks()
+        for bul in self.bullets:
+            flag = bul.move_action()
+            self.screen.blit(bul.img, bul.rect)
+        del_index = [] 
+        for bul in self.bullets:   
+            if bul.inframe == False:
+                del_index.append(bul)
+        self.bullets = [i for i in self.bullets if not i in del_index]
+        
+        # 0.5秒経ったら再度弾を打てるようにする
+        now = pg.time.get_ticks()
+        if now - self.bullet_start_time >= 500: #500ミリ秒
+            self.bullet_is_ready = True
+        
 class Shark(Fish):
     def __init__(self, x, y, screen, key, player):
         super().__init__(x, y, screen, key, player)
@@ -257,6 +284,27 @@ class Shark(Fish):
             
         #口の位置
         self.mouth = 60
+        
+    def fire_bullet(self):
+        if self.key[self.key_list["fire"]] and self.bullet_is_ready:
+            bullet = SharkBullet(self.screen, self.player)
+            bullet.fire(self.player_pos, self.mouth, self.fRight)
+            self.bullets.append(bullet)
+            self.bullet_is_ready = False
+            self.bullet_start_time = pg.time.get_ticks()
+        for bul in self.bullets:
+            flag = bul.move_action()
+            self.screen.blit(bul.img, bul.rect)
+        del_index = [] 
+        for bul in self.bullets:   
+            if bul.inframe == False:
+                del_index.append(bul)
+        self.bullets = [i for i in self.bullets if not i in del_index]
+        
+        # 0.5秒経ったら再度弾を打てるようにする
+        now = pg.time.get_ticks()
+        if now - self.bullet_start_time >= 500: #500ミリ秒
+            self.bullet_is_ready = True
 
 
 class Hirame(Fish):
@@ -275,6 +323,26 @@ class Hirame(Fish):
         if player == 1:
             self.img = pg.transform.flip(self.img, True, False)
 
+    def fire_bullet(self):
+        if self.key[self.key_list["fire"]] and self.bullet_is_ready:
+            bullet = HirameBullet(self.screen, self.player)
+            bullet.fire(self.player_pos, self.mouth, self.fRight)
+            self.bullets.append(bullet)
+            self.bullet_is_ready = False
+            self.bullet_start_time = pg.time.get_ticks()
+        for bul in self.bullets:
+            flag = bul.move_action()
+            self.screen.blit(bul.img, bul.rect)
+        del_index = [] 
+        for bul in self.bullets:   
+            if bul.inframe == False:
+                del_index.append(bul)
+        self.bullets = [i for i in self.bullets if not i in del_index]
+        
+        # 0.5秒経ったら再度弾を打てるようにする
+        now = pg.time.get_ticks()
+        if now - self.bullet_start_time >= 500: #500ミリ秒
+            self.bullet_is_ready = True
 
 # タコクラス
 class Octopus(Fish):
@@ -294,6 +362,27 @@ class Octopus(Fish):
             
         #口の位置
         self.mouth = 50
+        
+    def fire_bullet(self):
+        if self.key[self.key_list["fire"]] and self.bullet_is_ready:
+            bullet = OctopusBullet(self.screen, self.player)
+            bullet.fire(self.player_pos, self.mouth, self.fRight)
+            self.bullets.append(bullet)
+            self.bullet_is_ready = False
+            self.bullet_start_time = pg.time.get_ticks()
+        for bul in self.bullets:
+            flag = bul.move_action()
+            self.screen.blit(bul.img, bul.rect)
+        del_index = [] 
+        for bul in self.bullets:   
+            if bul.inframe == False:
+                del_index.append(bul)
+        self.bullets = [i for i in self.bullets if not i in del_index]
+        
+        # 0.5秒経ったら再度弾を打てるようにする
+        now = pg.time.get_ticks()
+        if now - self.bullet_start_time >= 500: #500ミリ秒
+            self.bullet_is_ready = True
 
 # イカ
 class Squid(Fish):
@@ -312,7 +401,27 @@ class Squid(Fish):
         if player == 1:
             self.img = pg.transform.flip(self.img, True, False)
 
-
+    def fire_bullet(self):
+        if self.key[self.key_list["fire"]] and self.bullet_is_ready:
+            bullet = SquidBullet(self.screen, self.player)
+            bullet.fire(self.player_pos, self.mouth, self.fRight)
+            self.bullets.append(bullet)
+            self.bullet_is_ready = False
+            self.bullet_start_time = pg.time.get_ticks()
+        for bul in self.bullets:
+            flag = bul.move_action()
+            self.screen.blit(bul.img, bul.rect)
+        del_index = [] 
+        for bul in self.bullets:   
+            if bul.inframe == False:
+                del_index.append(bul)
+        self.bullets = [i for i in self.bullets if not i in del_index]
+        
+        # 0.5秒経ったら再度弾を打てるようにする
+        now = pg.time.get_ticks()
+        if now - self.bullet_start_time >= 500: #500ミリ秒
+            self.bullet_is_ready = True
+            
 # ロブスター
 class Robster(Fish):
     def __init__(self, x, y, screen, key, player):
@@ -330,3 +439,23 @@ class Robster(Fish):
         if player == 1:
             self.img = pg.transform.flip(self.img, True, False)
 
+    def fire_bullet(self):
+        if self.key[self.key_list["fire"]] and self.bullet_is_ready:
+            bullet = RobsterBullet(self.screen, self.player)
+            bullet.fire(self.player_pos, self.mouth, self.fRight)
+            self.bullets.append(bullet)
+            self.bullet_is_ready = False
+            self.bullet_start_time = pg.time.get_ticks()
+        for bul in self.bullets:
+            flag = bul.move_action()
+            self.screen.blit(bul.img, bul.rect)
+        del_index = [] 
+        for bul in self.bullets:   
+            if bul.inframe == False:
+                del_index.append(bul)
+        self.bullets = [i for i in self.bullets if not i in del_index]
+        
+        # 0.5秒経ったら再度弾を打てるようにする
+        now = pg.time.get_ticks()
+        if now - self.bullet_start_time >= 500: #500ミリ秒
+            self.bullet_is_ready = True
