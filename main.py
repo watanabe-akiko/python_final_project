@@ -59,7 +59,7 @@ while True:
         # 画面を更新
         pg.display.update()
         
-        pg.time.Clock().tick(60)
+        pg.time.Clock().tick(30)
         
         # イベントをチェック
         for event in pg.event.get():

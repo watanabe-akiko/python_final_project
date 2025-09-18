@@ -23,6 +23,13 @@ class Display:
         
         self.select1 = [2,0]
         self.select2 = [0,0]
+        
+        self.hirame = Hirame(0, 480, screen, pg.key.get_pressed(), 1)
+        self.octopus = Octopus(1100, 480, screen, pg.key.get_pressed(), 2)
+        self.salmon = Salmon(0, 480, screen, pg.key.get_pressed(), 1)
+        self.shark = Shark(1100, 480, screen, pg.key.get_pressed(), 2)
+        self.squid = Squid(0, 480, screen, pg.key.get_pressed(), 1)
+        self.robster = Robster(1100, 480, screen, pg.key.get_pressed(), 2)
     
     def add_player(self, player):
         self.player_list.append(player)
@@ -152,12 +159,12 @@ class Display:
         # self.screen.blit(text_surface, (self.screen.get_width() // 2 - text_surface.get_width() // 2, 250))
         
         fish_list = []
-        fish_list.append(Hirame(150, 400, self.screen, self.key, 1))
-        fish_list.append(Octopus(350, 400, self.screen, self.key, 2))
-        fish_list.append(Salmon(550, 400, self.screen, self.key, 1))
-        fish_list.append(Squid(750, 400, self.screen, self.key, 2))
-        fish_list.append(Shark(950, 400, self.screen, self.key, 1))
-        fish_list.append(Robster(1150, 400, self.screen, self.key, 2))
+        fish_list.append(self.hirame)
+        fish_list.append(self.octopus)
+        fish_list.append(self.salmon)
+        fish_list.append(self.squid)
+        fish_list.append(self.shark)
+        fish_list.append(self.robster)
         
         for i, fish in enumerate(fish_list):
             # 画面表示、1行3匹
