@@ -41,6 +41,32 @@ class Display:
         
         # 終了判定
         if self.player_list[0].get_hp() < 1 or self.player_list[1].get_hp() < 1:
+            # 負けた時のエフェクト（2秒間アニメーション）
+            defeat_time = pg.time.get_ticks()
+            while True:
+                # 背景再描画
+                self.screen.blit(self.bg, self.rect_bg)
+                # VS再描画
+                self.screen.blit(self.vs, self.rect_vs)
+                # HP再描画
+                self.hp_bar()
+
+                # プレイヤー再描画（エフェクト付き）
+                if self.player_list[0].get_hp() < 1:
+                    self.player_list[0].defeat_effect()
+                else:
+                    self.screen.blit(self.player_list[0].img, self.player_list[0].player_pos)
+                if self.player_list[1].get_hp() < 1:
+                    self.player_list[1].defeat_effect()
+                else:
+                    self.screen.blit(self.player_list[1].img, self.player_list[1].player_pos)
+
+                pg.display.update()
+                pg.time.Clock().tick(60)
+
+                # 2秒経過したら結果表示
+                if pg.time.get_ticks() - defeat_time > 2000:
+                    break
             return False
 
         # HP表示
@@ -90,19 +116,22 @@ class Display:
 
     # HPのバーを表示する
     def hp_bar(self):
-        player1_hp = int((self.player_list[0].player_hp / self.player_list[0].hp_max) * 496)
+        player1_hp_ratio = self.player_list[0].player_hp / self.player_list[0].hp_max
+        player1_hp = int(player1_hp_ratio * 496)
+        color1 = (0,255,0) if player1_hp_ratio > 0.3 else (255,0,0)
         
         pg.draw.rect(self.screen, (255,255,255), pg.Rect(40, 20, 500, 40))
         pg.draw.rect(self.screen, (80,80,80), pg.Rect(42, 22, 496, 36))
-        pg.draw.rect(self.screen, (0,255,0), pg.Rect(538-player1_hp, 22, player1_hp, 36))
-        
-        player2_hp = int((self.player_list[1].player_hp / self.player_list[1].hp_max) * 496)
-        
+        pg.draw.rect(self.screen, color1, pg.Rect(538-player1_hp, 22, player1_hp, 36))
+
+        player2_hp_ratio = self.player_list[1].player_hp / self.player_list[1].hp_max
+        player2_hp = int(player2_hp_ratio * 496)
+        color2 = (0,255,0) if player2_hp_ratio > 0.3 else (255,0,0)
+
         pg.draw.rect(self.screen, (255,255,255), pg.Rect(660, 20, 500, 40))
         pg.draw.rect(self.screen, (80,80,80), pg.Rect(662, 22, 496, 36))
-        pg.draw.rect(self.screen, (0,255,0), pg.Rect(662, 22, player2_hp, 36))
-        
-    
+        pg.draw.rect(self.screen, color2, pg.Rect(662, 22, player2_hp, 36))
+
     # 開始画面
     def start_scene(self):
         # 背景表示
