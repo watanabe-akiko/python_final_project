@@ -1,5 +1,5 @@
 import pygame as pg
-
+from fish import Salmon,Shark,Hirame,Octopus,Squid,Robster
 
 class Display:
     def __init__(self, screen, key):
@@ -14,8 +14,15 @@ class Display:
         self.rect_vs.x = 570
         self.rect_vs.y = 10
         self.vs = pg.transform.scale(self.vs, (60, 60))
+        
+        self.title_logo = pg.image.load("images/logo.png")
+        self.rect_title_logo = self.title_logo.get_rect()
+        self.title_logo = pg.transform.scale(self.title_logo, (400, 200))
 
         self.player_list = []
+        
+        self.select1 = [2,0]
+        self.select2 = [0,0]
     
     def add_player(self, player):
         self.player_list.append(player)
@@ -109,14 +116,70 @@ class Display:
         self.screen.blit(self.bg, self.rect_bg)
 
         # タイトル表示
-        font = pg.font.SysFont(None, 80)
-        text_surface = font.render(f"Aqua Brawl", True, pg.Color("BLACK"))
-        self.screen.blit(text_surface, (50, 50))
+        self.screen.blit(self.title_logo, (400, 20))
         
-        font = pg.font.SysFont(None, 80)
-        text_surface = font.render(f"SPACE : Start", True, pg.Color("BLACK"))
-        self.screen.blit(text_surface, (50, 250))
-    
+        # font = pg.font.SysFont(None, 80)
+        # text_surface = font.render(f"SPACE : Start", True, pg.Color("BLACK"))
+        # self.screen.blit(text_surface, (self.screen.get_width() // 2 - text_surface.get_width() // 2, 250))
+        
+        fish_list = []
+        fish_list.append(Hirame(150, 400, self.screen, self.key, 1))
+        fish_list.append(Octopus(350, 400, self.screen, self.key, 2))
+        fish_list.append(Salmon(550, 400, self.screen, self.key, 1))
+        fish_list.append(Squid(750, 400, self.screen, self.key, 2))
+        fish_list.append(Shark(950, 400, self.screen, self.key, 1))
+        fish_list.append(Robster(1150, 400, self.screen, self.key, 2))
+        
+        for i, fish in enumerate(fish_list):
+            # 画面表示、1行3匹
+            self.screen.blit(fish.img, pg.Rect(200 + (i % 3 * 365), 250 + (i // 3) * 200, fish.img.get_width(), fish.img.get_height()))
+        
+        # プレイヤーごとに枠を表示、移動
+        pg.draw.rect(self.screen, (0,0,255), pg.Rect(175 + (self.select1[0] % 3 * 365), 225 + (self.select1[1] * 200), 150, 150), 3)
+        pg.draw.rect(self.screen, (255,0,0), pg.Rect(175 + (self.select2[0] % 3 * 365), 225 + (self.select2[1] * 200), 150, 150), 3)
+        
+        # キー入力
+        for event in pg.event.get():
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_a:
+                    # select2の左移動
+                    if self.select2[0] > 0:
+                        self.select2[0] -= 1
+                if event.key == pg.K_d:
+                    # select2の右移動
+                    if self.select2[0] < 2:
+                        self.select2[0] += 1
+                if event.key == pg.K_w:
+                    # select2の上移動
+                    if self.select2[1] > 0:
+                        self.select2[1] -= 1
+                if event.key == pg.K_s:
+                    # select2の下移動
+                    if self.select2[1] < 1:
+                        self.select2[1] += 1
+                if event.key == pg.K_LEFT:
+                    # select1の左移動
+                    if self.select1[0] > 0:
+                        self.select1[0] -= 1
+                if event.key == pg.K_RIGHT:
+                    # select1の右移動
+                    if self.select1[0] < 2:
+                        self.select1[0] += 1
+                if event.key == pg.K_UP:
+                    # select1の上移動
+                    if self.select1[1] > 0:
+                        self.select1[1] -= 1
+                if event.key == pg.K_DOWN:
+                    # select1の下移動
+                    if self.select1[1] < 1:
+                        self.select1[1] += 1
+                if event.key == pg.K_RETURN:
+                    # 決定
+                    player1_select = self.select1.copy()
+                    player2_select = self.select2.copy()
+                    return player2_select, player1_select
+        return None, None
+
     def game_scene(self):
         for i in range(3, 0, -1):
             # 背景表示
@@ -158,4 +221,3 @@ class Display:
         # コンテニュー
         text_surface = font.render(f"CONTINUE? Y / N", True, pg.Color("BLACK"))
         self.screen.blit(text_surface, (50, 200))
-        

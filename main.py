@@ -17,11 +17,6 @@ while True:
     # 初期設定
     # 画面表示の追加
     display = Display(screen, pg.key.get_pressed())
-    # キャラクター追加
-    fish1 = Hirame(0, 480, screen, pg.key.get_pressed(), 1)
-    fish2 = Octopus(1100, 480, screen, pg.key.get_pressed(), 2) 
-    display.add_player(fish1)
-    display.add_player(fish2)
     
     # スタート画面
     while True:
@@ -30,10 +25,40 @@ while True:
             break
         
         # 背景表示
-        display.start_scene()
+        player2_select, player1_select = display.start_scene()
+        if player2_select is not None and player1_select is not None:
+            if player2_select == [0,0]:
+                fish2 = Hirame(1100, 480, screen, pg.key.get_pressed(), 2)
+            elif player2_select == [1,0]:
+                fish2 = Octopus(1100, 480, screen, pg.key.get_pressed(), 2)
+            elif player2_select == [2,0]:
+                fish2 = Salmon(1100, 480, screen, pg.key.get_pressed(), 2)
+            elif player2_select == [0,1]:
+                fish2 = Squid(1100, 480, screen, pg.key.get_pressed(), 2)
+            elif player2_select == [1,1]:
+                fish2 = Shark(1100, 480, screen, pg.key.get_pressed(), 2)
+            elif player2_select == [2,1]:
+                fish2 = Robster(1100, 480, screen, pg.key.get_pressed(), 2)
+            if player1_select == [0,0]:
+                fish1 = Hirame(0, 480, screen, pg.key.get_pressed(), 1)
+            elif player1_select == [1,0]:
+                fish1 = Octopus(0, 480, screen, pg.key.get_pressed(), 1)
+            elif player1_select == [2,0]:
+                fish1 = Salmon(0, 480, screen, pg.key.get_pressed(), 1)
+            elif player1_select == [0,1]:
+                fish1 = Squid(0, 480, screen, pg.key.get_pressed(), 1)
+            elif player1_select == [1,1]:
+                fish1 = Shark(0, 480, screen, pg.key.get_pressed(), 1)
+            elif player1_select == [2,1]:
+                fish1 = Robster(0, 480, screen, pg.key.get_pressed(), 1)
+            # 選択されたキャラクターを追加
+            display.add_player(fish1)
+            display.add_player(fish2)
+            break
         
         # 画面を更新
         pg.display.update()
+        
         pg.time.Clock().tick(60)
         
         # イベントをチェック
