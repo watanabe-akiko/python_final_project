@@ -180,8 +180,13 @@ class Display:
         
         # プレイヤーごとに枠を表示、移動
         pg.draw.rect(self.screen, (255,0,0), pg.Rect(175 + (self.select1[0] % 3 * 365), 225 + (self.select1[1] * 200), 150, 150), 3)
+        font = pg.font.SysFont(None, 25)
+        text_surface = font.render(f"Player2", True, pg.Color("RED"))
+        self.screen.blit(text_surface, (260 + (self.select1[0] % 3 * 365), 205 + (self.select1[1] * 200)))
         pg.draw.rect(self.screen, (0,0,255), pg.Rect(175 + (self.select2[0] % 3 * 365), 225 + (self.select2[1] * 200), 150, 150), 3)
-        
+        text_surface = font.render(f"Player1", True, pg.Color("BLUE"))
+        self.screen.blit(text_surface, (175 + (self.select2[0] % 3 * 365), 205 + (self.select2[1] * 200)))
+
         # キー入力
         for event in pg.event.get():
             if event.type == pg.KEYDOWN:
