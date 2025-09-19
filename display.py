@@ -100,6 +100,8 @@ class Display:
         # プレイヤー同士の当たり判定
         if self.player_list[0].player_pos.colliderect(self.player_list[1].player_pos):
             if self.player_list[0].attack_now and not self.player_list[1].attack_now:
+                # 体当たり効果音を再生
+                pg.mixer.Sound("sounds/maou_se_battle16.mp3").play()
                 # ダメージ処理
                 self.player_list[1].decrease_hp(self.player_list[0].attack_power)
                 
@@ -110,6 +112,8 @@ class Display:
                     pg.time.delay(500)
                 
             elif not self.player_list[0].attack_now and self.player_list[1].attack_now:
+                # 体当たり効果音を再生
+                pg.mixer.Sound("sounds/maou_se_battle16.mp3").play()
                 # ダメージ処理
                 self.player_list[0].decrease_hp(self.player_list[1].attack_power)
                 
@@ -120,6 +124,8 @@ class Display:
                     pg.time.delay(500)
                 
             elif self.player_list[0].attack_now and self.player_list[1].attack_now:
+                # 体当たり効果音を再生
+                pg.mixer.Sound("sounds/maou_se_battle16.mp3").play()
                 # TODO 時間があったら、中心座標をつないだ線上に離れる
                 # TODO 音付ける
                 pass

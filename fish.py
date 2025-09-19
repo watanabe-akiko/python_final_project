@@ -263,6 +263,7 @@ class Salmon(Fish):
             self.img = pg.transform.flip(self.img, True, False)
     def fire_bullet(self):
         if self.key[self.key_list["fire"]] and self.bullet_is_ready:
+            pg.mixer.Sound("sounds/maou_se_magical01.mp3").play()
             bullet = SalmonBullet(self.screen, self.player)
             bullet.fire(self.player_pos, self.mouth, self.fRight)
             self.bullets.append(bullet)
@@ -303,6 +304,7 @@ class Shark(Fish):
         
     def fire_bullet(self):
         if self.key[self.key_list["fire"]] and self.bullet_is_ready:
+            pg.mixer.Sound("sounds/maou_se_magical01.mp3").play()
             bullet = SharkBullet(self.screen, self.player)
             bullet.fire(self.player_pos, self.mouth, self.fRight)
             self.bullets.append(bullet)
@@ -341,6 +343,7 @@ class Hirame(Fish):
 
     def fire_bullet(self):
         if self.key[self.key_list["fire"]] and self.bullet_is_ready:
+            pg.mixer.Sound("sounds/maou_se_magical01.mp3").play()
             bullet = HirameBullet(self.screen, self.player)
             bullet.fire(self.player_pos, self.mouth, self.fRight)
             self.bullets.append(bullet)
@@ -381,6 +384,7 @@ class Octopus(Fish):
         
     def fire_bullet(self):
         if self.key[self.key_list["fire"]] and self.bullet_is_ready:
+            pg.mixer.Sound("sounds/maou_se_magical01.mp3").play()
             bullet = OctopusBullet(self.screen, self.player)
             bullet.fire(self.player_pos, self.mouth, self.fRight)
             self.bullets.append(bullet)
@@ -419,6 +423,7 @@ class Squid(Fish):
 
     def fire_bullet(self):
         if self.key[self.key_list["fire"]] and self.bullet_is_ready:
+            pg.mixer.Sound("sounds/maou_se_magical01.mp3").play()
             bullet = SquidBullet(self.screen, self.player)
             bullet.fire(self.player_pos, self.mouth, self.fRight)
             self.bullets.append(bullet)
@@ -457,6 +462,7 @@ class Robster(Fish):
 
     def fire_bullet(self):
         if self.key[self.key_list["fire"]] and self.bullet_is_ready:
+            pg.mixer.Sound("sounds/maou_se_magical01.mp3").play()
             bullet = RobsterBullet(self.screen, self.player)
             bullet.fire(self.player_pos, self.mouth, self.fRight)
             self.bullets.append(bullet)
