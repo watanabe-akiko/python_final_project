@@ -31,7 +31,7 @@ class Fish:
         self.attack_now = False
         self.attack_start_time = 0
         # 攻撃力
-        self.attack_power = 5
+        self.attack_power = 5*2
         # 攻撃間隔
         self.attack_interval = 500  # ミリ秒
         
@@ -287,7 +287,7 @@ class Shark(Fish):
     def __init__(self, x, y, screen, key, player):
         super().__init__(x, y, screen, key, player)
 
-        self.attack_power = 7
+        self.attack_power = 7*2
         self.attack_interval = 700  # ミリ秒
 
         
@@ -368,7 +368,7 @@ class Octopus(Fish):
     def __init__(self, x, y, screen, key, player):
         super().__init__(x, y, screen, key, player)
 
-        self.attack_power = 4
+        self.attack_power = 4*2
         self.bullet_attack_interval = 200  # ミリ秒
 
         # 画像をタコに変更
