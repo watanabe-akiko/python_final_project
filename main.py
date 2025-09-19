@@ -21,8 +21,8 @@ while True:
     # スタート画面
     while True:
         # スペースで開始
-        if pg.key.get_pressed()[pg.K_SPACE]:
-            break
+        # if pg.key.get_pressed()[pg.K_SPACE]:
+        #     break
         
         # 背景表示
         player2_select, player1_select = display.start_scene()

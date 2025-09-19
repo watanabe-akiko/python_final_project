@@ -179,8 +179,8 @@ class Display:
             self.screen.blit(fish.img, pg.Rect(200 + (i % 3 * 365), 250 + (i // 3) * 200, fish.img.get_width(), fish.img.get_height()))
         
         # プレイヤーごとに枠を表示、移動
-        pg.draw.rect(self.screen, (0,0,255), pg.Rect(175 + (self.select1[0] % 3 * 365), 225 + (self.select1[1] * 200), 150, 150), 3)
-        pg.draw.rect(self.screen, (255,0,0), pg.Rect(175 + (self.select2[0] % 3 * 365), 225 + (self.select2[1] * 200), 150, 150), 3)
+        pg.draw.rect(self.screen, (255,0,0), pg.Rect(175 + (self.select1[0] % 3 * 365), 225 + (self.select1[1] * 200), 150, 150), 3)
+        pg.draw.rect(self.screen, (0,0,255), pg.Rect(175 + (self.select2[0] % 3 * 365), 225 + (self.select2[1] * 200), 150, 150), 3)
         
         # キー入力
         for event in pg.event.get():
@@ -221,7 +221,7 @@ class Display:
                     # 決定
                     player1_select = self.select1.copy()
                     player2_select = self.select2.copy()
-                    return player2_select, player1_select
+                    return player1_select, player2_select
         return None, None
 
     def game_scene(self):
