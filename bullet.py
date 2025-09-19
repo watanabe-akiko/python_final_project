@@ -20,7 +20,7 @@ class Bullet:
         self.rotate_count = 0
 
         # 移動速度
-        self.speed = 10
+        self.speed = 20
 
         # 画面情報
         self.screen = screen
@@ -100,7 +100,7 @@ class SalmonBullet(Bullet):
         self.inframe = True
 
         # 移動速度
-        self.speed = 10
+        self.speed = 20
 
         # 画面情報
         self.screen = screen
@@ -124,7 +124,7 @@ class SharkBullet(Bullet):
         self.inframe = True
 
         # 移動速度
-        self.speed = 10
+        self.speed = 20
 
         # 画面情報
         self.screen = screen
@@ -148,7 +148,7 @@ class HirameBullet(Bullet):
         self.inframe = True
 
         # 移動速度
-        self.speed = 10
+        self.speed = 20
 
         # 画面情報
         self.screen = screen
@@ -172,7 +172,7 @@ class OctopusBullet(Bullet):
         self.inframe = True
 
         # 移動速度
-        self.speed = 10
+        self.speed = 20
 
         # 画面情報
         self.screen = screen
@@ -196,7 +196,7 @@ class SquidBullet(Bullet):
         self.inframe = True
 
         # 移動速度
-        self.speed = 10
+        self.speed = 20
 
         # 画面情報
         self.screen = screen
@@ -220,7 +220,7 @@ class RobsterBullet(Bullet):
         self.inframe = True
 
         # 移動速度
-        self.speed = 10
+        self.speed = 20
 
         # 画面情報
         self.screen = screen
