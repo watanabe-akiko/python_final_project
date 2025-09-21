@@ -39,7 +39,7 @@ class Fish:
         self.bullet_is_ready = True
         self.bullet_start_time = 0
         #　弾の攻撃力
-        self.bullet_attack_power = 1/8
+        self.bullet_attack_power = 1/3
         self.bullet_attack_interval = 500  # ミリ秒
 
         
@@ -409,7 +409,7 @@ class Squid(Fish):
     def __init__(self, x, y, screen, key, player):
         super().__init__(x, y, screen, key, player)
 
-        self.bullet_attack_power = 3/8
+        self.bullet_attack_power = 3/3
         self.move_amount = 8
         self.size = 125
 
@@ -448,7 +448,7 @@ class Robster(Fish):
     def __init__(self, x, y, screen, key, player):
         super().__init__(x, y, screen, key, player)
 
-        self.bullet_attack_power = 0.7/8
+        self.bullet_attack_power = 0.7/3
         self.hp_max = 150
         self.player_hp = 150
 
