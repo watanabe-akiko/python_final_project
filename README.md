@@ -1,5 +1,5 @@
 # python_final_project
-CodeCrysaris　Python基礎講座　final project teamサーモンのプロジェクトです。
+Code Chrysalis　Python基礎講座　final project teamサーモンのプロジェクトです。
 
 ![ロゴ](images/logo.png)
 
